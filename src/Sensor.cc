@@ -287,6 +287,9 @@ Errors Sensor::Load(ElementPtr _sdf)
   else if (type == "custom")
   {
     this->dataPtr->type = SensorType::CUSTOM;
+    this->dataPtr->camera.emplace();
+    Errors err = this->dataPtr->camera->Load(_sdf->GetElement("camera"));
+    errors.insert(errors.end(), err.begin(), err.end());
   }
   else if (type == "depth" || type == "depth_camera")
   {
